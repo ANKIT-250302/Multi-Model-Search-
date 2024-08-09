@@ -1,0 +1,12 @@
+streamlit
+pillow
+numpy
+fastembed
+Qdrant_client
+matplotlib
+transformers
+requests
+openai
+base64
+uuid
+time
