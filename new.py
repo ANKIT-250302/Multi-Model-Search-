@@ -22,8 +22,9 @@ i_model = AutoModelForZeroShotImageClassification.from_pretrained(model_name)
 embedding_model = TextEmbedding()
 
 # Your Openai API ,Qdrant API key and URL
-openai.api_key= "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"
-api_key = "iARSA_Jprb0k6Nun2pL_qFkejK_5_jE8YD8n8qVSwuLGMZ4O4G_-Ag"
+openai.api_key=st.secrets["openai_api_key"]
+api_key = st.secrets["qdrant_api_key"]
+
 qdrant_url = 'https://0d23ce49-803b-4c5e-b670-c5d80a86e6c1.us-east4-0.gcp.cloud.qdrant.io:6333'
 
 # Initialize Qdrant client with API key
@@ -75,8 +76,8 @@ def generate_image_description(image):
     base64_image = base64.b64encode(image.read()).decode('utf-8')
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer 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"
-    }
+        "Authorization": f"Bearer "+st.secrets["openai_api_key"]
+        }
 
     payload = {
         "model": "gpt-4o",
