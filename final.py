@@ -4,18 +4,15 @@ import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import PointStruct
 from fastembed import TextEmbedding
-from transformers import AutoProcessor, AutoModelForZeroShotImageClassification
+from transformers import BlipProcessor, BlipForConditionalGeneration, AutoProcessor, AutoModelForZeroShotImageClassification
 import google.generativeai as genai
+import os
 import numpy as np
 import time
 
-# Load API keys from Streamlit secrets
-google_api_key = st.secrets["GEMINI-PRO-API_KEY"]
-qdrant_api_key = st.secrets["qdrant_api_key"]
-qdrant_url = st.secrets["q_url"]
-
 # Configure the Google Gemini API
-genai.configure(api_key=google_api_key)
+os.environ['GOOGLE_API_KEY'] = "AIzaSyBZivq5E8IvqVRNL-dNRU4aSymOjw_S5mI"
+genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 vision_model = genai.GenerativeModel('gemini-1.5-flash')
 
 # Load pre-trained models
@@ -27,7 +24,9 @@ processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 # Initialize Qdrant client
-client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
+api_key = "iARSA_Jprb0k6Nun2pL_qFkejK_5_jE8YD8n8qVSwuLGMZ4O4G_-Ag"
+qdrant_url = 'https://0d23ce49-803b-4c5e-b670-c5d80a86e6c1.us-east4-0.gcp.cloud.qdrant.io:6333'
+client = QdrantClient(url=qdrant_url, api_key=api_key)
 
 # Helper functions
 def reduce_image_size(image, max_width=1024, max_height=1024):
@@ -42,7 +41,7 @@ def reduce_image_size(image, max_width=1024, max_height=1024):
 def embed_text(text):
     embed = embedding_model.embed([text])
     for i in embed:
-        embed=i
+        embed = i
     return embed
 
 def generate_image_embedding(image):
@@ -91,21 +90,21 @@ def generate_image_description(image):
 
 # About page
 def about_me():
-    st.title('Ankit Jangid')
-    st.write('Place: Jaipur, Rajasthan')
-    st.write('Contact: +91 9461962044')
+        st.title('Ankit Jangid')
+        st.write('Place: Jaipur, Rajasthan')
+        st.write('Contact: +91 9461962044')
 
-    # LinkedIn Profile Button
-    if st.button('LinkedIn Profile'):
-        st.markdown("[Open LinkedIn Profile](https://www.linkedin.com/in/ankit-jangid)", unsafe_allow_html=True)
+        # LinkedIn Profile Button
+        if st.button('LinkedIn Profile'):
+            st.markdown("[Open LinkedIn Profile](https://www.linkedin.com/in/ankit-jangid)", unsafe_allow_html=True)
 
-    # Email Button
-    if st.button('Mail'):
-        st.markdown("[Send Email](mailto:ajladaniya425@gmail.com)", unsafe_allow_html=True)
+        # Email Button
+        if st.button('Mail'):
+            st.markdown("[Send Email](mailto:ajladaniya425@gmail.com)", unsafe_allow_html=True)
 
-    # Google Docs Resume Button
-    if st.button('Google Doc'):
-        st.markdown("[Open Google Docs](https://docs.google.com/document/d/1rzvM_XdlbO_hkSLwXwkVSb4imwsrKFNHrxA1LOKDNqA/edit?usp=sharing)", unsafe_allow_html=True)
+        # Google Docs Resume Button
+        if st.button('Google Doc'):
+            st.markdown("[Open Google Docs](https://docs.google.com/document/d/1rzvM_XdlbO_hkSLwXwkVSb4imwsrKFNHrxA1LOKDNqA/edit?usp=sharing)", unsafe_allow_html=True)
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
@@ -160,8 +159,6 @@ elif page == "Text Search":
         if query:
             try:
                 embed = embed_text(query)
-                for i in embed:
-                    embed=i
                 search_result = client.search(collection_name="text_vectors", query_vector=embed, limit=1)
                 if search_result:
                     payload = search_result[0].payload
@@ -203,3 +200,4 @@ elif page == "Image Searching":
 # About page
 elif page == "About":
     about_me()
+    
