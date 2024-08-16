@@ -11,7 +11,7 @@ import numpy as np
 import time
 
 # Configure the Google Gemini API
-os.environ['GOOGLE_API_KEY'] = "AIzaSyBZivq5E8IvqVRNL-dNRU4aSymOjw_S5mI"
+os.environ['GOOGLE_API_KEY'] = st.secrets["GEMINI-PRO-API_KEY"]
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 vision_model = genai.GenerativeModel('gemini-1.5-flash')
 
@@ -24,8 +24,8 @@ processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 # Initialize Qdrant client
-api_key = "iARSA_Jprb0k6Nun2pL_qFkejK_5_jE8YD8n8qVSwuLGMZ4O4G_-Ag"
-qdrant_url = 'https://0d23ce49-803b-4c5e-b670-c5d80a86e6c1.us-east4-0.gcp.cloud.qdrant.io:6333'
+api_key = st.secrets["qdrant_api_key"]
+qdrant_url = st.secrets["q_url"]
 client = QdrantClient(url=qdrant_url, api_key=api_key)
 
 # Helper functions
