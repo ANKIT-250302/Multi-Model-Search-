@@ -7,6 +7,6 @@ matplotlib
 transformers
 requests
 openai
-base64
+pybase64
 uuid
-time
+TIME-python
