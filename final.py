@@ -82,7 +82,7 @@ def process_image_and_text(image, text, retries=3):
 
 def generate_image_description(image):
     try:
-        response = vision_model.generate_content(["Write a 100 words story from the Picture", image])
+        response = vision_model.generate_content(["Describe the image content in 200 words", image])
         return response.text
     except Exception as e:
         st.error(f"Failed to generate description: {e}")
