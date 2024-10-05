@@ -96,7 +96,7 @@ def about_me():
 
         # LinkedIn Profile Button
         if st.button('LinkedIn Profile'):
-            st.markdown("[Open LinkedIn Profile](https://www.linkedin.com/in/ankit-jangid)", unsafe_allow_html=True)
+            st.markdown("[Open LinkedIn Profile](https://www.linkedin.com/in/ankit-jangid-9910b3231)", unsafe_allow_html=True)
 
         # Email Button
         if st.button('Mail'):
