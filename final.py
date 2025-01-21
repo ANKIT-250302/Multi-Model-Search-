@@ -4,7 +4,7 @@ import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import PointStruct
 from fastembed import TextEmbedding
-from transformers import BlipProcessor, BlipForConditionalGeneration, AutoProcessor, AutoModelForZeroShotImageClassification
+from transformers import  AutoProcessor, AutoModelForZeroShotImageClassification
 import google.generativeai as genai
 import os
 import numpy as np
