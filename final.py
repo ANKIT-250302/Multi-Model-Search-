@@ -20,8 +20,6 @@ model_name = "openai/clip-vit-base-patch32"
 i_processor = AutoProcessor.from_pretrained(model_name)
 i_model = AutoModelForZeroShotImageClassification.from_pretrained(model_name)
 embedding_model = TextEmbedding()
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 # Initialize Qdrant client
 api_key = st.secrets["qdrant_api_key"]
