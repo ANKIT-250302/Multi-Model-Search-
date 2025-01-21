@@ -12,6 +12,7 @@ uuid
 TIME-python
 google-generativeai
 torch
+torchvision
 pydantic
 regex
 scipy
