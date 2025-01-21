@@ -12,3 +12,8 @@ uuid
 TIME-python
 google-generativeai
 torch
+pydantic
+regex
+scipy
+scikit-learn
+safetensors
